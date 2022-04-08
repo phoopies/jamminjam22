@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class GameManager : MonoBehaviour
+{
+    public static int collectibles;
+
+    private static GameObject player;
+
+    private void Awake()
+    {
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        player = GameObject.FindWithTag("Player");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public static void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public static void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public static void AddCollectible()
+    {
+        collectibles++;
+
+        foreach (var t in player.GetComponentsInChildren<TMP_Text>())
+        {
+            t.SetText(collectibles.ToString());
+        }
+    }
+}

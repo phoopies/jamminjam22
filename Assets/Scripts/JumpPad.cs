@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class LevelExit : MonoBehaviour
+public class JumpPad : MonoBehaviour
 {
 	// Start is called before the first frame update
 	void Start()
@@ -19,9 +19,9 @@ public class LevelExit : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.GetComponent<PlayerMovement>())
+		if (other.GetComponent<PlayerMovement>())
 		{
-			GameManager.LoadNextScene();
+			
 		}
 	}
 }
