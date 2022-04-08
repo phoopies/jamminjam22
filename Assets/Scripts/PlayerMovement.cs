@@ -5,48 +5,67 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float movementSpeed = 5f;
+	[SerializeField]
+	private float movementSpeed = 4f;
 
-    [SerializeField]
-    private float jumpHeight = 2f;
+	[SerializeField]
+	private float jumpStrength = 6.25f;
 
-    private Vector3 velocity;
+	[SerializeField]
+	private float gravity = -9.81f;
 
-    private CharacterController characterController;
+	[SerializeField]
+	private float airControl = 0.25f;
 
-    private void Awake()
-    {
-        characterController = GetComponent<CharacterController>();
-    }
+	private Vector3 velocity;
 
-    void Start()
-    {
-        
-    }
+	private CharacterController characterController;
 
-    // Update is called once per frame
-    void Update()
-    {
-        velocity.y -= Time.deltaTime * 9.81f;
-        if (Input.GetButtonDown("Jump"))
+	private void Awake()
+	{
+		characterController = GetComponent<CharacterController>();
+	}
+
+	void Start()
+	{
+		
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		float horInput = Input.GetAxis("Horizontal");
+
+		if (characterController.isGrounded)
         {
-            Jump();
-        }
+			velocity.y = -1;
 
-        float horInput = Input.GetAxis("Horizontal");
-        velocity.x = horInput * movementSpeed;
-        characterController.Move(velocity * Time.deltaTime);
-    }
+			velocity.x = horInput * movementSpeed;
+			//velocity += 
+
+			if (Input.GetButtonDown("Jump"))
+			{
+				Jump();
+			}
+		}
+		else
+        {
+			velocity.y += gravity * Time.deltaTime;
+
+			velocity.x = horInput * movementSpeed /** airControl*/;
+		}
+
+		characterController.Move(velocity * Time.deltaTime);
+	}
 
 
-    void Jump()
-    {
-        velocity.y = jumpHeight;
-    }
+	void Jump()
+	{
+		velocity.y = jumpStrength;
+	}
 
-    void Move()
-    {
+	void Move()
+	{
 
-    }
+	}
 }
