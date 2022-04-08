@@ -50,9 +50,8 @@ public class PlayerMovement : MonoBehaviour
         {
 			if (inAir)
             {
-				inAir = false;
-				Instantiate(groundHitPs, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.Euler(-90, 0, 0));
-            }
+				Landed();
+			}
 			velocity.y = -1;
 
 			//velocity.x = horInput * movementSpeed;
@@ -74,6 +73,12 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+	void Landed()
+    {
+		inAir = false;
+		Instantiate(groundHitPs, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.Euler(-90, 0, 0));
+		CameraShake.Shake(0.1f, 0.13f);
+	}
 
 	void Jump()
 	{

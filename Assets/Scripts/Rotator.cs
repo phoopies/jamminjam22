@@ -20,12 +20,12 @@ public class Rotator : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetQuaternion, rotateSpeed * Time.deltaTime);
         if (transform.rotation != targetQuaternion) return;
         transform.rotation = targetQuaternion;
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetButtonDown("RotateLeft"))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, 90f, 0);
             CameraShake.Shake(.2f, .7f);
         }
-        else if (Input.GetKeyDown(KeyCode.X))
+        else if (Input.GetButtonDown("RotateRight"))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, -90f, 0);
             CameraShake.Shake(.2f, .7f);
