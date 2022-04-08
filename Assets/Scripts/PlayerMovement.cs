@@ -17,7 +17,10 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField]
 	private float airControl = 0.25f;
 
-	private Vector3 movementInput;
+	private bool inAir;
+
+	[SerializeField]
+	private GameObject groundHitPs;
 
 	private Vector3 velocity;
 
@@ -45,6 +48,11 @@ public class PlayerMovement : MonoBehaviour
 
 		if (characterController.isGrounded)
         {
+			if (inAir)
+            {
+				inAir = false;
+				Instantiate(groundHitPs, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.Euler(-90, 0, 0));
+            }
 			velocity.y = -1;
 
 			//velocity.x = horInput * movementSpeed;
@@ -64,12 +72,12 @@ public class PlayerMovement : MonoBehaviour
 
 		characterController.Move(velocity * Time.deltaTime);
 
-		movementInput = Vector3.zero;
 	}
 
 
 	void Jump()
 	{
+		inAir = true;
 		velocity.y = jumpStrength;
 	}
 
