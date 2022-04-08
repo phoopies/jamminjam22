@@ -31,4 +31,9 @@ public class Rotator : MonoBehaviour
             CameraShake.Shake(.2f, .7f);
         }
     }
+
+    public Vector3 GetTargetRight()
+    {
+        return targetQuaternion * Vector3.right;
+    }
 }

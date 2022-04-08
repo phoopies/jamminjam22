@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 	private float movementSpeed = 4f;
 
 	[SerializeField]
-	private float jumpStrength = 6.25f;
+	private float jumpStrength = 4.25f;
 
 	[SerializeField]
 	private float gravity = -9.81f;
@@ -17,9 +17,13 @@ public class PlayerMovement : MonoBehaviour
 	[SerializeField]
 	private float airControl = 0.25f;
 
+	private Vector3 movementInput;
+
 	private Vector3 velocity;
 
 	private CharacterController characterController;
+
+	private Rotator rotator;
 
 	private void Awake()
 	{
@@ -28,20 +32,23 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
-		
+		rotator = FindObjectOfType<Rotator>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		float horInput = Input.GetAxis("Horizontal");
+		float horInput = Input.GetAxisRaw("Horizontal");
+
+		velocity.x = (rotator.GetTargetRight() * horInput * movementSpeed).x;
+		velocity.z = (rotator.GetTargetRight() * horInput * movementSpeed).z;
 
 		if (characterController.isGrounded)
         {
 			velocity.y = -1;
 
-			velocity.x = horInput * movementSpeed;
-			//velocity += 
+			//velocity.x = horInput * movementSpeed;
+			
 
 			if (Input.GetButtonDown("Jump"))
 			{
@@ -52,10 +59,12 @@ public class PlayerMovement : MonoBehaviour
         {
 			velocity.y += gravity * Time.deltaTime;
 
-			velocity.x = horInput * movementSpeed /** airControl*/;
+			//velocity.x = horInput * movementSpeed /** airControl*/;
 		}
 
 		characterController.Move(velocity * Time.deltaTime);
+
+		movementInput = Vector3.zero;
 	}
 
 
