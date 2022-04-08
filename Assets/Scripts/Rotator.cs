@@ -23,10 +23,12 @@ public class Rotator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, 90f, 0);
+            CameraShake.Shake(.2f, .7f);
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, -90f, 0);
+            CameraShake.Shake(.2f, .7f);
         }
     }
 }
