@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (!movementEnabled) return;
 		horInput = Input.GetAxisRaw("Horizontal");
-		jumpInput = jumpInput || Input.GetButtonDown("Jump");
+		jumpInput = jumpInput || Input.GetButton("Jump");
 	}
 
     private void FixedUpdate()

@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public static int collectibles;
 
+    public static int collectiblesInRound;
+
     private static GameObject player;
 
     private Animator animator;
@@ -20,6 +22,8 @@ public class GameManager : MonoBehaviour
 
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
+
+        collectiblesInRound = 0;
     }
 
     // Start is called before the first frame update
