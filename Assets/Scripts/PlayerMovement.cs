@@ -176,9 +176,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public void SpeedBoost(Vector3 vel)
     {
-		Vector3 modifiedVel = Vector3.Scale(vel, rotator.GetTargetRight());
-		Debug.Log(modifiedVel);
-		rb.AddForce(modifiedVel, ForceMode.Impulse);
+		//Vector3 modifiedVel = Vector3.Scale(vel, rotator.GetTargetRight());
+		//Debug.Log(modifiedVel);
+		rb.AddForce(vel, ForceMode.Impulse);
     }
 
 	public void BounceBack()

@@ -4,23 +4,35 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public static int deathCounter;
-    void Start()
-    {
-        
-    }
+	public static int deathCounter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField]
+	private GameObject deathParticle;
 
-    public void Die()
-    {
-        // TODO polish
-        CameraShake.Shake(.3f, .6f);
-        deathCounter++;
-        GameManager.ReloadScene();
-    }
+	void Start()
+	{
+		
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
+
+	public void Die()
+	{
+		// TODO polish
+		CameraShake.Shake(.3f, .6f);
+		deathCounter++;
+		StartCoroutine(Died());
+		GetComponent<MeshRenderer>().enabled = false;
+		Instantiate(deathParticle, transform.position, transform.rotation);
+	}
+
+	private IEnumerator Died()
+	{
+		yield return new WaitForSeconds(1f);
+		GameManager.ReloadScene();
+	}
 }

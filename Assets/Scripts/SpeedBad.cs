@@ -40,7 +40,8 @@ public class SpeedBad : Activatable
 		PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 		if (playerMovement)
 		{
-			Vector3 vel =  (toLeft ? -1 : 1) * new Vector3(1,0,1) * strength;
+			//Vector3 vel =  (toLeft ? -1 : 1) * new Vector3(1,0,1) * strength;
+			Vector3 vel = transform.right * strength;
 			playerMovement.SpeedBoost(vel);
 			playerMovement.Jump(1.25f); // mini jump
 			CameraShake.Shake(.1f, .15f);

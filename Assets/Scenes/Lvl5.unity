@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b0c5b7a664dc5024c96f6b8364b07dc7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.26117438, g: 0.4353866, b: 0.52245975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1300,6 +1300,10 @@ PrefabInstance:
       propertyPath: activatable
       value: 
       objectReference: {fileID: 503684336}
+    - target: {fileID: 4251121105680991748, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
+      propertyPath: activatable
+      value: 
+      objectReference: {fileID: 503684336}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
 --- !u!4 &501366104 stripped
@@ -1453,6 +1457,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1033463739}
     m_Modifications:
+    - target: {fileID: 488497181836924812, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
+      propertyPath: activatable
+      value: 
+      objectReference: {fileID: 470647043}
     - target: {fileID: 850470149276535724, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1502,6 +1510,10 @@ PrefabInstance:
       value: PressurePlate (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1493424684291634317, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
+      propertyPath: activatable
+      value: 
+      objectReference: {fileID: 470647043}
+    - target: {fileID: 4251121105680991748, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
       propertyPath: activatable
       value: 
       objectReference: {fileID: 470647043}
@@ -1912,6 +1924,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1834159853}
     m_Modifications:
+    - target: {fileID: 488497181836924812, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
+      propertyPath: activatable
+      value: 
+      objectReference: {fileID: 354629818}
     - target: {fileID: 850470149276535724, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1961,6 +1977,10 @@ PrefabInstance:
       value: PressurePlate
       objectReference: {fileID: 0}
     - target: {fileID: 1493424684291634317, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
+      propertyPath: activatable
+      value: 
+      objectReference: {fileID: 354629818}
+    - target: {fileID: 4251121105680991748, guid: 18095ff28d69aa94d973e8f8abb32213, type: 3}
       propertyPath: activatable
       value: 
       objectReference: {fileID: 354629818}

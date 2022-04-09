@@ -35,9 +35,13 @@ public class PressurePlate : MonoBehaviour
     [SerializeField]
     float isDownTreshold = 0.1f;
 
+    private Transform child;
+
     void Start()
     {
-        originY = transform.localPosition.y;
+        child = transform.GetChild(0);
+
+        originY = child.localPosition.y;
     }
 
     // Update is called once per frame
@@ -45,17 +49,17 @@ public class PressurePlate : MonoBehaviour
     {
         if (used && isSingleShot) return;
 
-        float currentY = transform.localPosition.y;
-        Vector3 pos = transform.localPosition;
+        float currentY = child.localPosition.y;
+        Vector3 pos = child.localPosition;
         
-        if (isDown && transform.localPosition.y > isDownTreshold)
+        if (isDown && child.localPosition.y > isDownTreshold)
         {
             isDown = false;
             pos.y = originY;
-            transform.localPosition = pos;
+            child.localPosition = pos;
             activatable.Deactivate();
         }
-        else if (!isDown && transform.localPosition.y <= isDownTreshold)
+        else if (!isDown && child.localPosition.y <= isDownTreshold)
         {
             if (used && isSingleShot) return;
             Debug.Log("Do something I'm giving up on you!");
@@ -66,20 +70,27 @@ public class PressurePlate : MonoBehaviour
 
         if (stuffOnMe < minWeight && currentY < originY - closeEnoughOffset)
         {
-            transform.localPosition += Vector3.up * upSpeed * Time.deltaTime;
+            child.localPosition += Vector3.up * upSpeed * Time.deltaTime;
         }
         else if (stuffOnMe >= minWeight)
         {
-            transform.localPosition += Vector3.down * downSpeed * Time.deltaTime;
+            if (child.localPosition.y < originY - .15f)
+            {
+
+            }
+            else
+            {
+                child.localPosition += Vector3.down * downSpeed * Time.deltaTime;
+            }
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         stuffOnMe++;
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
         stuffOnMe--;
         //isDown = stuffOnMe >= minWeight;
