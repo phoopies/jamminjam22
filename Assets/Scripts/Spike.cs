@@ -19,9 +19,10 @@ public class Spike : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.GetComponent<PlayerMovement>())
+		Player player = other.GetComponent<Player>();
+		if (player)
 		{
-			GameManager.ReloadScene();
+			player.Die();
 		}
 	}
 }

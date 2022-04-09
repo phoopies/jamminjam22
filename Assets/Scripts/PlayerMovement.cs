@@ -32,7 +32,9 @@ public class PlayerMovement : MonoBehaviour
 
 	private Rigidbody rb;
 
-	private float kindaRadius;
+	private float halfHeight;
+
+	private float halfWidth;
 
 	private MovingPlatform platform;
 
@@ -48,7 +50,9 @@ public class PlayerMovement : MonoBehaviour
 		rotator = FindObjectOfType<Rotator>();
 
 		Collider col = GetComponent<Collider>();
-		kindaRadius = col.bounds.extents.y;
+		halfHeight = col.bounds.extents.y;
+		halfWidth = col.bounds.extents.x;
+		Debug.LogFormat("halfHeight {0}", halfHeight);
 	}
 
 	void Start()
@@ -74,12 +78,15 @@ public class PlayerMovement : MonoBehaviour
 
 		if (isGrounded)
 		{
+			if (platform)
+			{
+				rb.velocity = platform.GetVelocity();
+			}
+
 			if (inAir)
 			{
 				Landed();
 			}
-
-			//velocity.x = horInput * movementSpeed;
 
 			if ( jumpInput && !HitHead())
 			{
@@ -88,6 +95,12 @@ public class PlayerMovement : MonoBehaviour
 		}
 		else
 		{
+			if (rb.velocity.y <= .1f)
+            {
+				Vector3 oldVel = rb.velocity;
+				oldVel.y += gravity * Time.deltaTime;
+				rb.velocity = oldVel;
+            }
 			if (HitHead())
 			{
 				Debug.Log("Hit head");
@@ -99,13 +112,6 @@ public class PlayerMovement : MonoBehaviour
 			movement.z *= airControl;
 		}
 
-		if (platform)
-        {
-			Debug.Log("ON PLATFORM");
-			Debug.Log(platform.GetVelocity());
-			rb.velocity = platform.GetVelocity();
-        }
-
 		rb.MovePosition(transform.position + movement * Time.deltaTime);
 
 		// NOMNOMONMO
@@ -116,8 +122,8 @@ public class PlayerMovement : MonoBehaviour
 	void UpdateIsGrounded()
 	{
 		Vector3 thatSmallOffset = Vector3.up * 0.05f;
-		Vector3 corner1 = transform.position + new Vector3(1, -1, 1) * kindaRadius + thatSmallOffset;
-		Vector3 corner2 = transform.position + -1*Vector3.one * kindaRadius + thatSmallOffset;
+		Vector3 corner1 = transform.position + new Vector3(1, -1, 1) * halfWidth + thatSmallOffset;
+		Vector3 corner2 = transform.position + -1*Vector3.one * halfWidth + thatSmallOffset;
 		Debug.DrawRay(corner1, Vector3.down * groundRayDistance, Color.red);
 		Debug.DrawRay(corner2, Vector3.down * groundRayDistance, Color.red);
 		isGrounded = Physics.Raycast(corner1, Vector3.down, groundRayDistance, groundMask)
@@ -128,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
 
 	bool HitHead()
 	{
-		Debug.DrawRay(transform.position + Vector3.up * kindaRadius, Vector3.up * groundRayDistance, Color.blue);
-		return Physics.Raycast(transform.position + Vector3.up * kindaRadius, Vector3.up, groundRayDistance, groundMask);
+		Debug.DrawRay(transform.position + Vector3.up * halfHeight, Vector3.up * groundRayDistance, Color.blue);
+		return Physics.Raycast(transform.position + Vector3.up * halfHeight, Vector3.up, groundRayDistance, groundMask);
 	}
 
 	void Landed()
