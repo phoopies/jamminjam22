@@ -17,5 +17,9 @@ public class BobbiRot : MonoBehaviour
     void Update()
     {
         transform.Rotate(new Vector3(0, speed, 0) * Time.deltaTime, Space.World);
+        
+        Vector3 cur = transform.localPosition;
+        cur.y += Mathf.Sin(Time.realtimeSinceStartup) * 0.004f;
+        transform.localPosition = cur;
     }
 }
