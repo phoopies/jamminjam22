@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static int collectibles;
 
     private static GameObject player;
+    
 
     private void Awake()
     {
@@ -35,6 +36,11 @@ public class GameManager : MonoBehaviour
     public static void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public static void LoadMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public static void AddCollectible()

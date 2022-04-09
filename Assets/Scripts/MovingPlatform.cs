@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Rigidbody))]
 public class MovingPlatform : MonoBehaviour
 {
 	private Vector3 startPosition;
+
+	private Rigidbody rb;
 
 	[SerializeField]
 	private GameObject target;
@@ -25,6 +27,8 @@ public class MovingPlatform : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
+		rb = GetComponent<Rigidbody>();
+
 		startPosition = transform.position;
 		endPosition = target.transform.position;
 		targetPosition = endPosition;
@@ -32,7 +36,7 @@ public class MovingPlatform : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
+	void Update() // FIXED UPDATE? :D
 	{
 		if (waitTimer > 0f)
         {
@@ -52,7 +56,7 @@ public class MovingPlatform : MonoBehaviour
 				}
 				waitTimer = wait;
 			}
-			transform.Translate((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+			rb.MovePosition(transform.position + (targetPosition - transform.position).normalized * speed * Time.deltaTime);
 		}
 	}
 
@@ -62,7 +66,8 @@ public class MovingPlatform : MonoBehaviour
         if (playerMovement)
         {
 			Debug.Log("MovingPlatform");
-			playerMovement.gameObject.transform.SetParent(transform, true);
+			playerMovement.setPlatform(this);
+			//playerMovement.gameObject.transform.SetParent(transform, true);
         }
     }
 
@@ -71,7 +76,13 @@ public class MovingPlatform : MonoBehaviour
 		PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 		if (playerMovement)
 		{
-			playerMovement.gameObject.transform.SetParent(null);
+			playerMovement.setPlatform(null);
+			//playerMovement.gameObject.transform.SetParent(null);
 		}
 	}
+
+	public Vector3 GetVelocity()
+    {
+		return rb.velocity;
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(Collider))]
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField]
@@ -19,75 +19,140 @@ public class PlayerMovement : MonoBehaviour
 
 	private bool inAir;
 
+	private bool isGrounded;
+
 	[SerializeField]
 	private GameObject groundHitPs;
 
-	private Vector3 velocity;
+	[SerializeField]
+	private float groundRayDistance = 0.2f;
 
-	private CharacterController characterController;
+	[SerializeField]
+	private LayerMask groundMask;
+
+	private Rigidbody rb;
+
+	private float kindaRadius;
+
+	private MovingPlatform platform;
+
 
 	private Rotator rotator;
 
+	private float horInput;
+	private bool jumpInput;
+
 	private void Awake()
 	{
-		characterController = GetComponent<CharacterController>();
+		rb = GetComponent<Rigidbody>();
+		rotator = FindObjectOfType<Rotator>();
+
+		Collider col = GetComponent<Collider>();
+		kindaRadius = col.bounds.extents.y;
 	}
 
 	void Start()
 	{
-		rotator = FindObjectOfType<Rotator>();
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		float horInput = Input.GetAxisRaw("Horizontal");
+		horInput = Input.GetAxisRaw("Horizontal");
+		jumpInput = jumpInput || Input.GetButtonDown("Jump");
+	}
 
-		velocity.x = (rotator.GetTargetRight() * horInput * movementSpeed).x;
-		velocity.z = (rotator.GetTargetRight() * horInput * movementSpeed).z;
+    private void FixedUpdate()
+    {
+		UpdateIsGrounded();
 
-		if (characterController.isGrounded)
-        {
+		Vector3 movement = new Vector3(1, 0, 1);
+
+		movement.x = (rotator.GetTargetRight() * horInput * movementSpeed).x;
+		movement.z = (rotator.GetTargetRight() * horInput * movementSpeed).z;
+
+		if (isGrounded)
+		{
 			if (inAir)
-            {
+			{
 				Landed();
 			}
-			velocity.y = -1;
 
 			//velocity.x = horInput * movementSpeed;
-			
 
-			if (Input.GetButtonDown("Jump"))
+			if ( jumpInput && !HitHead())
 			{
 				Jump();
 			}
 		}
 		else
-        {
-			velocity.y += gravity * Time.deltaTime;
+		{
+			if (HitHead())
+			{
+				Debug.Log("Hit head");
+				rb.AddForce(Vector3.down);
+				CameraShake.Shake(0.1f, 0.1f);
+			}
 
-			//velocity.x = horInput * movementSpeed /** airControl*/;
+			movement.x *= airControl;
+			movement.z *= airControl;
 		}
 
-		characterController.Move(velocity * Time.deltaTime);
+		if (platform)
+        {
+			Debug.Log("ON PLATFORM");
+			Debug.Log(platform.GetVelocity());
+			rb.velocity = platform.GetVelocity();
+        }
 
+		rb.MovePosition(transform.position + movement * Time.deltaTime);
+
+		// NOMNOMONMO
+		horInput = 0;
+		jumpInput = false;
+	}
+
+	void UpdateIsGrounded()
+	{
+		Vector3 thatSmallOffset = Vector3.up * 0.05f;
+		Vector3 corner1 = transform.position + new Vector3(1, -1, 1) * kindaRadius + thatSmallOffset;
+		Vector3 corner2 = transform.position + -1*Vector3.one * kindaRadius + thatSmallOffset;
+		Debug.DrawRay(corner1, Vector3.down * groundRayDistance, Color.red);
+		Debug.DrawRay(corner2, Vector3.down * groundRayDistance, Color.red);
+		isGrounded = Physics.Raycast(corner1, Vector3.down, groundRayDistance, groundMask)
+			|| Physics.Raycast(corner2, Vector3.down, groundRayDistance, groundMask);
+	}
+
+
+
+	bool HitHead()
+	{
+		Debug.DrawRay(transform.position + Vector3.up * kindaRadius, Vector3.up * groundRayDistance, Color.blue);
+		return Physics.Raycast(transform.position + Vector3.up * kindaRadius, Vector3.up, groundRayDistance, groundMask);
 	}
 
 	void Landed()
-    {
+	{
+		if (rb.velocity.y > -1f) return;
+		Debug.Log(rb.velocity.y);
+		// a value between 0 and .15
+		float landingForce = -1*Statics.MapClamped(rb.velocity.y, -10f, -1f, -.25f, 0f);
 		inAir = false;
 		Instantiate(groundHitPs, transform.position + new Vector3(0f, -0.5f, 0f), Quaternion.Euler(-90, 0, 0));
-		CameraShake.Shake(0.1f, 0.13f);
+		CameraShake.Shake(0.1f, landingForce);
 	}
 
 	void Jump()
 	{
+		Debug.Log("JUMP");
+		platform = null;
 		inAir = true;
-		velocity.y = jumpStrength;
+		rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
 	}
 
-	void Move()
-	{
-
-	}
+	public void setPlatform(MovingPlatform aPlatform)
+    {
+		platform = aPlatform;
+    }
 }
