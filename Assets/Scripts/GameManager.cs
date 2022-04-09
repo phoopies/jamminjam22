@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        animator.SetTrigger("end");
+        if (animator.isActiveAndEnabled)
+            animator.SetTrigger("end");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
     }

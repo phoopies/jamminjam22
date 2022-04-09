@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
-    // TODO Event
+    [SerializeField]
+    private Activatable activatable;
 
     uint stuffOnMe;
     float originY;
@@ -25,6 +26,13 @@ public class PressurePlate : MonoBehaviour
     bool hasBeenUp = true;
 
     [SerializeField]
+    private bool isSingleShot;
+
+    private bool used;
+
+    private uint minWeight = 1;
+
+    [SerializeField]
     float isDownTreshold = 0.1f;
 
     void Start()
@@ -38,7 +46,7 @@ public class PressurePlate : MonoBehaviour
         float currentY = transform.localPosition.y;
         Vector3 pos = transform.localPosition;
        
-        if (stuffOnMe == 0 && currentY < originY - closeEnoughOffset)
+        if (stuffOnMe < minWeight && currentY < originY - closeEnoughOffset)
         {
             transform.localPosition += Vector3.up * upSpeed * Time.deltaTime;
             if (transform.localPosition.y >= originY - closeEnoughOffset)
@@ -48,12 +56,15 @@ public class PressurePlate : MonoBehaviour
                 hasBeenUp = true;
             }
         }
-        else if (stuffOnMe > 0)
+        else if (stuffOnMe >= minWeight)
         {
             transform.localPosition += Vector3.down * downSpeed * Time.deltaTime;
             if (hasBeenUp && transform.localPosition.y < isDownTreshold)
             {
+                if (used && isSingleShot) return;
+                activatable.Activate();
                 Debug.Log("Do something I'm giving up on you!");
+                used = true;
                 isDown = true;
                 hasBeenUp = false;
             }
@@ -68,6 +79,10 @@ public class PressurePlate : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         stuffOnMe--;
-        isDown = isDown || stuffOnMe > 0;
+        isDown = isDown || stuffOnMe >= minWeight;
+        if (!isDown && isSingleShot)
+        {
+            activatable.Deactivate();
+        }
     }
 }

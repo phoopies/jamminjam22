@@ -9,6 +9,9 @@ public class Rotator : MonoBehaviour
     private float rotateSpeed = 10f;
     private Quaternion targetQuaternion = Quaternion.identity;
 
+    [SerializeField]
+    private GameObject RotatePs;
+
     void Start()
     {
         
@@ -23,17 +26,23 @@ public class Rotator : MonoBehaviour
         if (Input.GetButtonDown("RotateLeft"))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, 90f, 0);
-            CameraShake.Shake(.2f, .7f);
+            Rotated();
         }
         else if (Input.GetButtonDown("RotateRight"))
         {
             targetQuaternion = transform.rotation * Quaternion.Euler(0, -90f, 0);
-            CameraShake.Shake(.2f, .7f);
+            Rotated();
         }
     }
 
     public Vector3 GetTargetRight()
     {
         return targetQuaternion * Vector3.right;
+    }
+
+    void Rotated()
+    {
+        CameraShake.Shake(.2f, .7f);
+        Instantiate(RotatePs);
     }
 }

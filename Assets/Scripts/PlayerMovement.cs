@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
 			if (rb.velocity.y <= .1f)
             {
 				Vector3 oldVel = rb.velocity;
-				oldVel.y += gravity * Time.deltaTime;
+				oldVel.y += gravity * Time.deltaTime * .7f;
 				rb.velocity = oldVel;
             }
 			if (HitHead())
