@@ -5,7 +5,6 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
-	public static int deathCounter;
 
 	[SerializeField]
 	private GameObject deathParticle;
@@ -14,7 +13,7 @@ public class Player : MonoBehaviour
 	{
 		foreach (var t in GetComponentsInChildren<TMP_Text>())
 		{
-			t.SetText("");
+			t.SetText(GameManager.collectibles > 0 ? GameManager.collectibles.ToString() : "");
 		}
 	}
 
@@ -26,21 +25,11 @@ public class Player : MonoBehaviour
 
 	public void Die()
 	{
-		// TODO polish
 		CameraShake.Shake(.3f, .6f);
-		deathCounter++;
-		StartCoroutine(Died());
-		GetComponent<MeshRenderer>().enabled = false;
-		foreach (var t in GetComponentsInChildren<TMP_Text>())
-        {
-			t.enabled = false;
-        }
+		GameManager.deathCounter++;
+		GameManager.instance.StartCoroutine(GameManager.DelayedReloadScene());
 		Instantiate(deathParticle, transform.position, transform.rotation);
+		Destroy(gameObject);
 	}
 
-	private IEnumerator Died()
-	{
-		yield return new WaitForSeconds(1f);
-		GameManager.ReloadScene();
-	}
 }

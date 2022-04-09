@@ -18,12 +18,8 @@ public class PressurePlate : MonoBehaviour
 
     bool isDown;
 
-    float downY;
-
     [SerializeField]
     float closeEnoughOffset = .1f;
-
-    bool hasBeenUp = true;
 
     [SerializeField]
     private bool isSingleShot;

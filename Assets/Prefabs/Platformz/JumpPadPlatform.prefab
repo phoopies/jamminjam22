@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 615685874327185763}
   - component: {fileID: 615685874327185764}
   - component: {fileID: 615685874327185765}
-  - component: {fileID: 615685874327185762}
   - component: {fileID: 6745538538907534165}
+  - component: {fileID: 615685874327185762}
   - component: {fileID: 6864602016026146364}
   m_Layer: 3
   m_Name: JumpPadPlatform
@@ -89,19 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &615685874327185762
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 615685874327185760}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &6745538538907534165
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,6 +102,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.1, z: 1}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!65 &615685874327185762
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615685874327185760}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6864602016026146364
 MonoBehaviour:
   m_ObjectHideFlags: 0

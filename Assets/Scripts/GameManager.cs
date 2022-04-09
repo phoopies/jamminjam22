@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public static int collectibles;
 
+    public static int deathCounter;
+
     public static int collectiblesInRound;
 
     private static GameObject player;
 
     private Animator animator;
 
-    private static GameManager instance;
+    public static GameManager instance;
 
     private void Awake()
     {
@@ -23,9 +25,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
 
-        collectiblesInRound = 0;
-
         collectiblesInRound = collectibles;
+        
     }
 
     // Start is called before the first frame update
@@ -46,8 +47,19 @@ public class GameManager : MonoBehaviour
         instance.StartCoroutine(instance.LoadScene());
     }
 
+    public static IEnumerator DelayedReloadScene()
+    {
+        yield return new WaitForSeconds(1.33f);
+        GameManager.ReloadScene();
+    }
+
     public static void ReloadScene()
     {
+        if (player)
+        {
+            player.GetComponent<Player>().Die();
+            return;
+        }
         collectibles = collectiblesInRound;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }

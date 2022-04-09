@@ -13,17 +13,23 @@ public class SpeedBad : Activatable
 	[SerializeField]
 	private bool toLeft;
 
+	private BoxCollider boxCollider;
+
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		ps = GetComponentInChildren<ParticleSystem>();
+		boxCollider = GetComponent<BoxCollider>();
 		if (isActive)
 		{
 			ps.Play();
+			boxCollider.enabled = true;
+
 		}
 		else
 		{
+			boxCollider.enabled = false;
 			ps.Stop();
 		}
 	}
@@ -51,12 +57,14 @@ public class SpeedBad : Activatable
 	public override void Activate()
 	{
 		base.Activate();
+		boxCollider.enabled = true;
 		ps.Play();
 	}
 
 	public override void Deactivate()
 	{
 		base.Deactivate();
+		boxCollider.enabled = false;
 		ps.Stop();
 	}
 }
