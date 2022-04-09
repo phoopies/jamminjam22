@@ -4,22 +4,27 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+[RequireComponent(typeof(Animator))]
 public class GameManager : MonoBehaviour
 {
     public static int collectibles;
 
     private static GameObject player;
-    
+
+    private Animator animator;
+
+    private static GameManager instance;
 
     private void Awake()
     {
-        
+        instance = this;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -30,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     public static void LoadNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        instance.StartCoroutine(instance.LoadScene());
     }
 
     public static void ReloadScene()
@@ -51,5 +56,12 @@ public class GameManager : MonoBehaviour
         {
             t.SetText(collectibles.ToString());
         }
+    }
+
+    IEnumerator LoadScene()
+    {
+        animator.SetTrigger("end");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
     }
 }

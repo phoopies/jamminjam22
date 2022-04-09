@@ -5,12 +5,17 @@ using UnityEngine;
 public class Tester : MonoBehaviour
 {
     [SerializeField]
+    private KeyCode loadNextScene = KeyCode.N;
+
+    [SerializeField]
     private KeyCode camShakeActivator = KeyCode.M;
+
     [SerializeField]
     private float camShakeDuration = .25f;
 
     [SerializeField]
     private float camShakeAmount = 4f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +28,10 @@ public class Tester : MonoBehaviour
         if (Input.GetKeyDown(camShakeActivator))
         {
             CameraShake.Shake(camShakeDuration, camShakeAmount);
+        }
+        else if (Input.GetKeyDown(loadNextScene))
+        {
+            GameManager.LoadNextScene();
         }
     }
 }
