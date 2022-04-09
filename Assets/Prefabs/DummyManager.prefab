@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 7708990296279770690}
   m_Layer: 0
   m_Name: DummyManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

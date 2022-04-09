@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public static void QuitGame()
+    {
+        Debug.Log("Quitting game");
+        Application.Quit();
+    }
+
     public static void AddCollectible()
     {
         collectibles++;
