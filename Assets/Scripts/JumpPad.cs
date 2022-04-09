@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider))]
 public class JumpPad : MonoBehaviour
 {
+	[SerializeField]
+	private float strength = 12f;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -19,9 +21,11 @@ public class JumpPad : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.GetComponent<PlayerMovement>())
+		PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
+		if (playerMovement)
 		{
-			
+			playerMovement.Jump(strength);
+			CameraShake.Shake(.2f, .3f);
 		}
 	}
 }

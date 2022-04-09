@@ -150,11 +150,19 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 	void Jump()
+    {
+		Jump(jumpStrength);
+    }
+
+	public void Jump(float strength)
 	{
 		Debug.Log("JUMP");
 		platform = null;
 		inAir = true;
-		rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+		Vector3 oldVel = rb.velocity;
+		oldVel.y = 0;
+		rb.velocity = oldVel;
+		rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
 	}
 
 	public void setPlatform(MovingPlatform aPlatform)
