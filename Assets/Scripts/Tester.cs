@@ -33,5 +33,9 @@ public class Tester : MonoBehaviour
         {
             GameManager.LoadNextScene();
         }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameManager.ReloadScene();
+        }
     }
 }

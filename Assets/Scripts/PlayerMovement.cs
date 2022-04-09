@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField]
+	private bool movementEnabled = true;
+
+	[SerializeField]
 	private float movementSpeed = 4f;
 
 	[SerializeField]
@@ -63,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (!movementEnabled) return;
 		horInput = Input.GetAxisRaw("Horizontal");
 		jumpInput = jumpInput || Input.GetButtonDown("Jump");
 	}
@@ -168,5 +172,12 @@ public class PlayerMovement : MonoBehaviour
 	public void setPlatform(MovingPlatform aPlatform)
     {
 		platform = aPlatform;
+    }
+
+	public void SpeedBoost(Vector3 vel)
+    {
+		Vector3 modifiedVel = Vector3.Scale(vel, rotator.GetTargetRight());
+		Debug.Log(modifiedVel);
+		rb.AddForce(modifiedVel, ForceMode.Impulse);
     }
 }

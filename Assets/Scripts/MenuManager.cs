@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
+
+    [SerializeField]
+    private int nextLevelInt = 0;
+
+    [SerializeField]
+    private int quitInt = 2;
+
     private Rotator rotator;
     private void Start()
     {
@@ -17,11 +24,11 @@ public class MenuManager : MonoBehaviour
             if (y % 90 != 0) return;
             int rotation = Mathf.FloorToInt(y / 90) % 4;
             Debug.Log(rotation);
-            if (rotation == 0)
+            if (rotation == nextLevelInt)
             {
                 GameManager.LoadNextScene();
             }
-            else if (rotation == 2)
+            else if (rotation == quitInt)
             {
                 GameManager.QuitGame();
             }
