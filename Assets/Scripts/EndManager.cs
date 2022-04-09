@@ -15,6 +15,6 @@ public class EndManager : MonoBehaviour
 	private void Awake()
 	{
 		deathsText.SetText(string.Format("Only {0} slimeöös were harmed during this run", GameManager.deathCounter));
-		soulsText.SetText(string.Format("You collected {0}/10 slimeöösouls", GameManager.collectibles));
+		soulsText.SetText(string.Format("You collected {0}/16 mägmöömömmös", GameManager.collectibles));
 	}
 }
