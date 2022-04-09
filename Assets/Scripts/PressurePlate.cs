@@ -43,31 +43,34 @@ public class PressurePlate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (used && isSingleShot) return;
+
         float currentY = transform.localPosition.y;
         Vector3 pos = transform.localPosition;
-       
+        
+        if (isDown && transform.localPosition.y > isDownTreshold)
+        {
+            isDown = false;
+            pos.y = originY;
+            transform.localPosition = pos;
+            activatable.Deactivate();
+        }
+        else if (!isDown && transform.localPosition.y <= isDownTreshold)
+        {
+            if (used && isSingleShot) return;
+            Debug.Log("Do something I'm giving up on you!");
+            used = true;
+            isDown = true;
+            activatable.Activate();
+        }
+
         if (stuffOnMe < minWeight && currentY < originY - closeEnoughOffset)
         {
             transform.localPosition += Vector3.up * upSpeed * Time.deltaTime;
-            if (transform.localPosition.y >= originY - closeEnoughOffset)
-            {
-                pos.y = originY;
-                transform.localPosition = pos;
-                hasBeenUp = true;
-            }
         }
         else if (stuffOnMe >= minWeight)
         {
             transform.localPosition += Vector3.down * downSpeed * Time.deltaTime;
-            if (hasBeenUp && transform.localPosition.y < isDownTreshold)
-            {
-                if (used && isSingleShot) return;
-                activatable.Activate();
-                Debug.Log("Do something I'm giving up on you!");
-                used = true;
-                isDown = true;
-                hasBeenUp = false;
-            }
         }
     }
 
@@ -79,10 +82,10 @@ public class PressurePlate : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         stuffOnMe--;
-        isDown = isDown || stuffOnMe >= minWeight;
-        if (!isDown && isSingleShot)
-        {
-            activatable.Deactivate();
-        }
+        //isDown = stuffOnMe >= minWeight;
+        //if (!isDown && !isSingleShot)
+        //{
+         //activatable.Deactivate();
+        //}
     }
 }

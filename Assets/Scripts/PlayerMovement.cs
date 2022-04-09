@@ -108,8 +108,8 @@ public class PlayerMovement : MonoBehaviour
 			if (HitHead())
 			{
 				Debug.Log("Hit head");
-				rb.AddForce(Vector3.down);
-				CameraShake.Shake(0.1f, 0.1f);
+				rb.AddForce(Vector3.down * .5f);
+				//CameraShake.Shake(0.1f, 0.1f);
 			}
 
 			movement.x *= airControl;
@@ -179,5 +179,10 @@ public class PlayerMovement : MonoBehaviour
 		Vector3 modifiedVel = Vector3.Scale(vel, rotator.GetTargetRight());
 		Debug.Log(modifiedVel);
 		rb.AddForce(modifiedVel, ForceMode.Impulse);
+    }
+
+	public void BounceBack()
+    {
+		rb.velocity *= -.95f;
     }
 }

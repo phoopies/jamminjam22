@@ -14,8 +14,14 @@ public class JumpPad : Activatable
 	void Start()
 	{
 		ps = GetComponentInChildren<ParticleSystem>();
-		ps.gameObject.SetActive(isActive);
-		
+		if (isActive)
+        {
+			ps.Play();
+        }
+		else
+        {
+			ps.Stop();
+        }		
 	}
 
 	// Update is called once per frame
@@ -38,12 +44,13 @@ public class JumpPad : Activatable
 	public override void Activate()
     {
 		base.Activate();
-		ps.gameObject.SetActive(isActive);
+		ps.Play();
 	}
 
     public override void Deactivate()
     {
         base.Deactivate();
-		ps.gameObject.SetActive(isActive);
+		ps.Stop();
+		//ps.gameObject.SetActive(isActive);
 	}
 }

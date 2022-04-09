@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 850470149276535722}
   - component: {fileID: 850470149276535725}
   m_Layer: 3
-  m_Name: PressurePlate
+  m_Name: SingleshotPressurePlate 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ PrefabInstance:
     - target: {fileID: 2266664997648958449, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: b26737d076b8636409af3b15339a84f8, type: 2}
+      objectReference: {fileID: 2100000, guid: 476e24b4b9eaf5b4abcca9c6f7af38dd, type: 2}
     - target: {fileID: 2266664997648958452, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_Name
       value: ActualPlate
@@ -209,8 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activatable: {fileID: 0}
-  downSpeed: 0.4
+  downSpeed: 0.15
   upSpeed: 0.4
   closeEnoughOffset: 0.02
-  isSingleShot: 0
+  isSingleShot: 1
   isDownTreshold: 0.1

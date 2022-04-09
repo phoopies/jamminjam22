@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(Rigidbody))]
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : Activatable
 {
 	private Vector3 startPosition;
 
@@ -38,6 +38,8 @@ public class MovingPlatform : MonoBehaviour
 	// Update is called once per frame
 	void Update() // FIXED UPDATE? :D
 	{
+		if (!isActive) return;
+
 		if (waitTimer > 0f)
         {
 			waitTimer -= Time.deltaTime;
