@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         collectiblesInRound = 0;
+
+        collectiblesInRound = collectibles;
     }
 
     // Start is called before the first frame update
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     public static void ReloadScene()
     {
+        collectibles = collectiblesInRound;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

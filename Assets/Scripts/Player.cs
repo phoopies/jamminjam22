@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
 		// TODO polish
 		CameraShake.Shake(.3f, .6f);
 		deathCounter++;
-		GameManager.collectiblesInRound = 0;
 		StartCoroutine(Died());
 		GetComponent<MeshRenderer>().enabled = false;
 		foreach (var t in GetComponentsInChildren<TMP_Text>())
