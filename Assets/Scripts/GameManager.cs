@@ -55,13 +55,15 @@ public class GameManager : MonoBehaviour
 
     public static void ReloadScene()
     {
+        int current = SceneManager.GetActiveScene().buildIndex;
+        if (current == 0 || current == SceneManager.sceneCountInBuildSettings - 1) return;
         if (player)
         {
             player.GetComponent<Player>().Die();
             return;
         }
         collectibles = collectiblesInRound;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(current);
     }
 
     public static void LoadMenu()

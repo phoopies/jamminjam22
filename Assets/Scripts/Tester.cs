@@ -27,13 +27,13 @@ public class Tester : MonoBehaviour
     {
         if (Input.GetKeyDown(camShakeActivator))
         {
-            CameraShake.Shake(camShakeDuration, camShakeAmount);
+            //CameraShake.Shake(camShakeDuration, camShakeAmount);
         }
         else if (Input.GetKeyDown(loadNextScene))
         {
-            GameManager.LoadNextScene();
+            //GameManager.LoadNextScene();
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+        else if (Input.GetButtonDown("Reset"))
         {
             GameManager.ReloadScene();
         }

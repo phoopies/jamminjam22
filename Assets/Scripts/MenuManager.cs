@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Submit"))
         {
             int y = (int)rotator.transform.rotation.eulerAngles.y;
             if (y % 90 != 0) return;
