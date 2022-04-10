@@ -35,7 +35,8 @@ public class Tester : MonoBehaviour
         }
         else if (Input.GetButtonDown("Reset"))
         {
-            GameManager.ReloadScene();
+            Player player = FindObjectOfType<Player>();
+            if (player) player.Die();
         }
     }
 }

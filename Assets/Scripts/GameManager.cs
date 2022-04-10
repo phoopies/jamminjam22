@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+
     private void Awake()
     {
         instance = this;
@@ -50,18 +51,13 @@ public class GameManager : MonoBehaviour
     public static IEnumerator DelayedReloadScene()
     {
         yield return new WaitForSeconds(1.33f);
-        GameManager.ReloadScene();
+        ReloadScene();
     }
 
     public static void ReloadScene()
     {
         int current = SceneManager.GetActiveScene().buildIndex;
         if (current == 0 || current == SceneManager.sceneCountInBuildSettings - 1) return;
-        if (player)
-        {
-            player.GetComponent<Player>().Die();
-            return;
-        }
         collectibles = collectiblesInRound;
         SceneManager.LoadScene(current);
     }
