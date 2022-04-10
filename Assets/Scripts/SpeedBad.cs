@@ -44,7 +44,7 @@ public class SpeedBad : Activatable
 			playerMovement.SpeedBoost(vel);
 			playerMovement.Jump(1.25f); // mini jump
 			CameraShake.Shake(.1f, .15f);
-			audioS.pitch = Random.Range(0.85f, 1.15f);
+			audioS.pitch = Random.Range(0.85f, 1f);
 			audioS.Play();
 		}
 	}

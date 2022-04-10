@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         QualitySettings.vSyncCount = 0;
 
-        collectiblesInRound = collectibles;
-        
+        collectiblesInRound = collectibles;   
     }
 
     // Start is called before the first frame update

@@ -109,3 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakParticle: {fileID: 2900876369823774144, guid: 489847018d6c2f24d94d9d80e5f5c293, type: 3}
+  clip: {fileID: 8300000, guid: 2699c057421597f479192615ade307c7, type: 3}

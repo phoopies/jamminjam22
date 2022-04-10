@@ -64,8 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
 		Collider col = GetComponent<Collider>();
 		halfHeight = .5f;
-		halfWidth = .43f;
-		Debug.LogFormat("halfHeight {0}", halfHeight);
+		halfWidth = .4f;
 	}
 
 	void Start()
@@ -155,14 +154,10 @@ public class PlayerMovement : MonoBehaviour
 	bool HitHead()
 	{
 		Vector3 thatSmallOffset = Vector3.down * 0.05f;
-		Vector3 corner1 = transform.position + new Vector3(-1, 1, -1) * halfWidth + thatSmallOffset;
-		Vector3 corner2 = transform.position + Vector3.one * halfWidth + thatSmallOffset;
-		corner1.y = transform.position.y + halfHeight;
-		corner2.y = transform.position.y + halfHeight;
-		Debug.DrawRay(corner1, Vector3.up * 0.03f, Color.blue);
-		Debug.DrawRay(corner2, Vector3.up * 0.03f, Color.blue);
-		return Physics.Raycast(corner1, Vector3.up, 0.1f, groundMask)
-			|| Physics.Raycast(corner2, Vector3.up, 0.1f, groundMask);
+		Vector3 center = transform.position + new Vector3(1, 0, 1) * halfWidth;
+		center.y = transform.position.y + halfHeight;
+		Debug.DrawRay(center, Vector3.up * 0.03f, Color.blue);
+		return Physics.Raycast(center, Vector3.up, 0.1f, groundMask);
 	}
 
 	void Landed()

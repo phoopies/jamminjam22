@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14878175, g: 0.22479072, b: 0.30095825, a: 1}
+  m_IndirectSpecularColor: {r: 0.16263014, g: 0.24562031, b: 0.3287633, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 8f59a81dcc153c34fa7f75c46cf2b268, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: f41520e5ef361c646a27a538c909a21c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -4458,11 +4458,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 615685874327185763, guid: 6cdf58dbfceb52040ae7f2ab360ca37a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 615685874327185763, guid: 6cdf58dbfceb52040ae7f2ab360ca37a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 615685874327185763, guid: 6cdf58dbfceb52040ae7f2ab360ca37a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5269,7 +5269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266664997648958455, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2266664997648958455, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5277,7 +5277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2266664997648958455, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2266664997648958455, guid: 77b94618c46b3634896489f55cbca5ce, type: 3}
       propertyPath: m_LocalPosition.z
