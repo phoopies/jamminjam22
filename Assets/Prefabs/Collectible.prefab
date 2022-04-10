@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75bd3ab851ee614cbd1f9470797551b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticle: {fileID: 4843057159979928196, guid: a69d239e53c5c4f46b32d9d14c96555d, type: 3}
+  deathParticle: {fileID: 4843057159979928196, guid: f114b76d1f91d1140b21cce6ef3eed43, type: 3}
 --- !u!33 &1494914430089899252
 MeshFilter:
   m_ObjectHideFlags: 0
