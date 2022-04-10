@@ -26,9 +26,9 @@ public class Collectible : MonoBehaviour
 			s.playOnAwake = false;
 			s.volume = .5f;
 			s.clip = clip;
+			s.pitch = Random.Range(0.85f, 1.15f);
 			s.Play();
 			Destroy(s, 3f);
-
 
 			Instantiate(deathParticle, transform.position, transform.rotation);
 

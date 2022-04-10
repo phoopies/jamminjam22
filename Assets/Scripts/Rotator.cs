@@ -46,6 +46,7 @@ public class Rotator : MonoBehaviour
     void Rotated()
     {
         CameraShake.Shake(.2f, .7f);
+        audioS.pitch = Random.Range(0.85f, 1.15f);
         audioS.Play();
         Instantiate(RotatePs);
     }
