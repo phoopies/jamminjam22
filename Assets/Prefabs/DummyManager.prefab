@@ -406,6 +406,58 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &3210211108432425309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4312421852406200683}
+  - component: {fileID: 1762337615082186525}
+  m_Layer: 0
+  m_Name: MouseBlocker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4312421852406200683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210211108432425309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8977425529130063070}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1762337615082186525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210211108432425309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de7074d7c9023c641bde7f9ceab48d14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  msgs:
+  - No mouse!
+  - Stop clicking!
+  - Nothing happeded...
+  - Try again?
+  - Click click
+  - Nope
+  message: {fileID: 8343041212811341307, guid: a736a1a78c987254eac1fc94e2fe988f, type: 3}
+  canvas: {fileID: 52344215}
 --- !u!1 &3294611149180261443
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +945,7 @@ Transform:
   m_Children:
   - {fileID: 2872525481503189342}
   - {fileID: 1753585323192919894}
+  - {fileID: 4312421852406200683}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
