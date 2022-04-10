@@ -651,7 +651,7 @@ MonoBehaviour:
   airControl: 0.77
   jumpDelay: 0.1
   groundHitPs: {fileID: 4843057159979928196, guid: a69d239e53c5c4f46b32d9d14c96555d, type: 3}
-  groundRayDistance: 0.2
+  groundRayDistance: 0.12
   groundMask:
     serializedVersion: 2
     m_Bits: 8

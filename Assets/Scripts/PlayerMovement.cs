@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
 		Collider col = GetComponent<Collider>();
 		halfHeight = .5f;
-		halfWidth = .45f;
+		halfWidth = .43f;
 		Debug.LogFormat("halfHeight {0}", halfHeight);
 	}
 
