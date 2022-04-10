@@ -67,9 +67,7 @@ public class MovingPlatform : Activatable
 		PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
         if (playerMovement)
         {
-			Debug.Log("MovingPlatform");
 			playerMovement.setPlatform(this);
-			//playerMovement.gameObject.transform.SetParent(transform, true);
         }
     }
 
@@ -79,7 +77,6 @@ public class MovingPlatform : Activatable
 		if (playerMovement)
 		{
 			playerMovement.setPlatform(null);
-			//playerMovement.gameObject.transform.SetParent(null);
 		}
 	}
 

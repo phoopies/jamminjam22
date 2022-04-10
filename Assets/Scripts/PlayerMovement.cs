@@ -63,8 +63,8 @@ public class PlayerMovement : MonoBehaviour
 		audioS = GetComponent<AudioSource>();
 
 		Collider col = GetComponent<Collider>();
-		halfHeight = col.bounds.extents.y;
-		halfWidth = col.bounds.extents.x;
+		halfHeight = .5f;
+		halfWidth = .45f;
 		Debug.LogFormat("halfHeight {0}", halfHeight);
 	}
 
@@ -119,7 +119,10 @@ public class PlayerMovement : MonoBehaviour
 			if (HitHead())
 			{
 				Debug.Log("Hit head");
-				rb.AddForce(Vector3.down * .5f);
+				Vector3 oldVel = rb.velocity;
+				oldVel.y = oldVel.y < 0 ? oldVel.y : 0;
+				rb.velocity = oldVel;
+				rb.AddForce(Vector3.down * .25f);
 				//CameraShake.Shake(0.1f, 0.1f);
 			}
 
@@ -136,9 +139,11 @@ public class PlayerMovement : MonoBehaviour
 
 	void UpdateIsGrounded()
 	{
-		Vector3 thatSmallOffset = Vector3.up * 0.05f;
-		Vector3 corner1 = transform.position + new Vector3(1, -1, 1) * halfWidth + thatSmallOffset;
-		Vector3 corner2 = transform.position + -1*Vector3.one * halfWidth + thatSmallOffset;
+		float thatSmallOffset = 0.05f;
+		Vector3 corner1 = transform.position + new Vector3(1, -1, 1) * halfWidth;
+		Vector3 corner2 = transform.position + -1 * Vector3.one * halfWidth;
+		corner1.y = transform.position.y - halfHeight + thatSmallOffset;
+		corner2.y = transform.position.y - halfHeight + thatSmallOffset;
 		Debug.DrawRay(corner1, Vector3.down * groundRayDistance, Color.red);
 		Debug.DrawRay(corner2, Vector3.down * groundRayDistance, Color.red);
 		isGrounded = Physics.Raycast(corner1, Vector3.down, groundRayDistance, groundMask)
@@ -149,8 +154,15 @@ public class PlayerMovement : MonoBehaviour
 
 	bool HitHead()
 	{
-		Debug.DrawRay(transform.position + Vector3.up * halfHeight, Vector3.up * groundRayDistance, Color.blue);
-		return Physics.Raycast(transform.position + Vector3.up * halfHeight, Vector3.up, groundRayDistance, groundMask);
+		Vector3 thatSmallOffset = Vector3.down * 0.05f;
+		Vector3 corner1 = transform.position + new Vector3(-1, 1, -1) * halfWidth + thatSmallOffset;
+		Vector3 corner2 = transform.position + Vector3.one * halfWidth + thatSmallOffset;
+		corner1.y = transform.position.y + halfHeight;
+		corner2.y = transform.position.y + halfHeight;
+		Debug.DrawRay(corner1, Vector3.up * 0.03f, Color.blue);
+		Debug.DrawRay(corner2, Vector3.up * 0.03f, Color.blue);
+		return Physics.Raycast(corner1, Vector3.up, 0.1f, groundMask)
+			|| Physics.Raycast(corner2, Vector3.up, 0.1f, groundMask);
 	}
 
 	void Landed()
@@ -175,11 +187,14 @@ public class PlayerMovement : MonoBehaviour
 	public void Jump(float strength)
 	{
 		if (jumpTimer > 0) return;
+		Vector3 platformVel = Vector3.zero;
+		if (platform)
+			platformVel = platform.GetVelocity();
 		platform = null;
 		inAir = true;
 		Vector3 oldVel = rb.velocity;
 		oldVel.y = 0;
-		rb.velocity = oldVel;
+		rb.velocity = oldVel - platformVel;
 		rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
 		jumpTimer = jumpDelay;
 	}
