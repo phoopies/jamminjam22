@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(Collider)), RequireComponent(typeof(AudioSource))]
 public class PlayerMovement : MonoBehaviour
 {
 	[SerializeField]
@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
 
 	[SerializeField]
 	private float airControl = 0.25f;
+
+	[SerializeField]
+	private float jumpDelay = 0.1f;
+
+	private float jumpTimer;
 
 	private bool inAir;
 
@@ -41,6 +46,10 @@ public class PlayerMovement : MonoBehaviour
 
 	private MovingPlatform platform;
 
+	private AudioSource audioS;
+
+	[SerializeField]
+	private AudioClip clip;
 
 	private Rotator rotator;
 
@@ -51,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody>();
 		rotator = FindObjectOfType<Rotator>();
+		audioS = GetComponent<AudioSource>();
 
 		Collider col = GetComponent<Collider>();
 		halfHeight = col.bounds.extents.y;
@@ -67,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		if (!movementEnabled) return;
+		jumpTimer -=jumpTimer >= 0 ? Time.deltaTime : 0;
 		horInput = Input.GetAxisRaw("Horizontal");
 		jumpInput = jumpInput || Input.GetButton("Jump");
 	}
@@ -145,6 +156,8 @@ public class PlayerMovement : MonoBehaviour
 	void Landed()
 	{
 		if (rb.velocity.y > -1f) return;
+		audioS.clip = clip;
+		audioS.Play();
 		Debug.Log(rb.velocity.y);
 		// a value between 0 and .15
 		float landingForce = -1*Statics.MapClamped(rb.velocity.y, -10f, -1f, -.25f, 0f);
@@ -160,13 +173,14 @@ public class PlayerMovement : MonoBehaviour
 
 	public void Jump(float strength)
 	{
-		Debug.Log("JUMP");
+		if (jumpTimer > 0) return;
 		platform = null;
 		inAir = true;
 		Vector3 oldVel = rb.velocity;
 		oldVel.y = 0;
 		rb.velocity = oldVel;
 		rb.AddForce(Vector3.up * strength, ForceMode.Impulse);
+		jumpTimer = jumpDelay;
 	}
 
 	public void setPlatform(MovingPlatform aPlatform)

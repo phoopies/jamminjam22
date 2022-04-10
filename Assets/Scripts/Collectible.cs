@@ -3,25 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-[RequireComponent(typeof(AudioSource))]
 public class Collectible : MonoBehaviour
 {
-	private AudioSource audioSource;
+	[SerializeField]
+	private AudioClip clip;
 
 	[SerializeField]
 	private GameObject deathParticle;
-
-	// Start is called before the first frame update
-	void Start()
-	{
-		audioSource = GetComponent<AudioSource>();
-	}
-
-	// Update is called once per frame
-	void Update()
-	{
-		
-	}
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -31,7 +19,16 @@ public class Collectible : MonoBehaviour
 
 			GameManager.AddCollectible();
 
-			audioSource.Play();
+			GameObject g = new GameObject();
+			GameObject inst = Instantiate(g);
+
+			AudioSource s = inst.AddComponent<AudioSource>();
+			s.playOnAwake = false;
+			s.volume = .5f;
+			s.clip = clip;
+			s.Play();
+			Destroy(s, 3f);
+
 
 			Instantiate(deathParticle, transform.position, transform.rotation);
 

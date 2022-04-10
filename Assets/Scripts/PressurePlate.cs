@@ -26,6 +26,7 @@ public class PressurePlate : MonoBehaviour
 
     private bool used;
 
+    [SerializeField]
     private uint minWeight = 1;
 
     [SerializeField]

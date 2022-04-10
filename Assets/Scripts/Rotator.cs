@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Rotator : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -12,9 +13,11 @@ public class Rotator : MonoBehaviour
     [SerializeField]
     private GameObject RotatePs;
 
+    private AudioSource audioS;
+
     void Start()
     {
-        
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class Rotator : MonoBehaviour
     void Rotated()
     {
         CameraShake.Shake(.2f, .7f);
+        audioS.Play();
         Instantiate(RotatePs);
     }
 }

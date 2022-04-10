@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(BoxCollider)), RequireComponent(typeof(AudioSource))]
 public class SpeedBad : Activatable
 {
 	[SerializeField]
@@ -12,12 +12,15 @@ public class SpeedBad : Activatable
 
 	private BoxCollider boxCollider;
 
+	private AudioSource audioS;
+
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		ps = GetComponentInChildren<ParticleSystem>();
 		boxCollider = GetComponent<BoxCollider>();
+		audioS = GetComponentInChildren<AudioSource>();
 		if (isActive)
 		{
 			ps.Play();
