@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
 		s.playOnAwake = false;
 		s.volume = 0.5f;
 		s.clip = clip;
+		s.pitch = Random.Range(0.85f, 1.15f);
 		s.Play();
 		Destroy(s, 3f);
 

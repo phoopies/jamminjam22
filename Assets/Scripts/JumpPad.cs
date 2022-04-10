@@ -44,6 +44,7 @@ public class JumpPad : Activatable
 		PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
 		if (playerMovement)
 		{
+			audioS.pitch = Random.Range(0.85f, 1.15f);
 			audioS.Play();
 			playerMovement.Jump(strength);
 			CameraShake.Shake(.2f, .3f);

@@ -157,6 +157,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if (rb.velocity.y > -1f) return;
 		audioS.clip = clip;
+		audioS.pitch = Random.Range(0.85f, 1.15f);
 		audioS.Play();
 		Debug.Log(rb.velocity.y);
 		// a value between 0 and .15

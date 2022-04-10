@@ -10,6 +10,7 @@ public class LevelExit : MonoBehaviour
 	void Start()
 	{
 		source = GetComponent<AudioSource>();
+		RenderSettings.ambientIntensity = Random.Range(0.99f, 1.01f);
 	}
 
 	// Update is called once per frame
@@ -22,6 +23,7 @@ public class LevelExit : MonoBehaviour
 	{
 		if (other.gameObject.GetComponent<PlayerMovement>())
 		{
+			source.pitch = Random.Range(0.85f, 1.15f);
 			source.Play();
 			GameManager.LoadNextScene();
 		}
